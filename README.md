@@ -1,6 +1,6 @@
-# Pokemon Pokedex — Claude Code Plugin
+# Pokemon Pokedex — Claude Skill
 
-A comprehensive Pokemon Pokedex plugin for Claude Code. Covers all 1,025 Pokemon across Generations 1–9
+A comprehensive Pokemon Pokedex Skill for Claude. Covers all 1,025 Pokemon across Generations 1–9
 with full base stats, abilities, moves, type matchups, species data, and Pokedex entries from every main
 series game.
 
@@ -18,34 +18,42 @@ series game.
 
 ## Installation
 
-### Test locally with `--plugin-dir`
+### 1. Clone or download this repository
 
 ```bash
-claude --plugin-dir ./pokemon-pokedex-plugin
+git clone https://github.com/your-username/pokemon-pokedex-skill.git
 ```
 
-Then try the skill:
+### 2. Place the skill in your Claude skills directory
+
+Copy the `pokedex/` folder into your Claude skills directory:
 
 ```
-/pokemon-pokedex:pokedex
+~/.claude/skills/pokedex/
 ```
 
-### Install from a marketplace
-
-If this plugin is published to a marketplace, install it with:
+Your directory should look like this:
 
 ```
-/plugin install pokemon-pokedex
+~/.claude/skills/pokedex/
+├── SKILL.md
+├── references/
+│   ├── pokemon_compact.json
+│   ├── pokemon_data.json
+│   ├── pokemon_extra_data.json
+│   ├── pokemon_moves.json
+│   └── type_chart.json
+└── scripts/
+    └── search_pokemon.py
 ```
+
+### 3. Confirm the skill is loaded
+
+Once the skill is in place, Claude will automatically use it when you ask Pokemon-related questions. No additional configuration is required.
 
 ## Usage
 
-Once installed, Claude will automatically use the Pokedex skill when you ask Pokemon-related questions.
-You can also invoke it directly:
-
-```
-/pokemon-pokedex:pokedex
-```
+Claude will pick up the Pokedex skill automatically when Pokemon topics come up. Just ask naturally.
 
 ### What you can ask
 
@@ -62,10 +70,10 @@ You can also invoke it directly:
 
 ### Command-line search utility
 
-The plugin includes `skills/pokedex/scripts/search_pokemon.py` for direct data queries:
+The skill includes `scripts/search_pokemon.py` for direct data queries without going through Claude:
 
 ```bash
-# From inside the skills/pokedex/ directory:
+# From inside the pokedex/ directory:
 python3 scripts/search_pokemon.py --name charizard --with-stats
 python3 scripts/search_pokemon.py --type fire --gen 1
 python3 scripts/search_pokemon.py --pseudo
@@ -90,32 +98,28 @@ Data sources: Psypokes Pokedex (PDF), augmented from training knowledge for stat
 
 ## What's Not Included
 
-For data that isn't in the bundled files, the plugin will direct Claude to
+For data not in the bundled files, Claude will direct you to
 [PokeAPI](https://pokeapi.co/api/v2/) (free, no auth required):
+
 - Individual Pokemon move learnsets
 - TM/TR/HM compatibility lists
 - Breeding compatibility chains
 - Held item details
 - Competitive EV spreads and natures
 
-## Plugin Structure
+## Skill Structure
 
 ```
-pokemon-pokedex-plugin/
-├── .claude-plugin/
-│   └── plugin.json          # Plugin manifest
-├── skills/
-│   └── pokedex/
-│       ├── SKILL.md         # Skill instructions and examples
-│       ├── references/      # Bundled JSON data files
-│       │   ├── pokemon_compact.json
-│       │   ├── pokemon_data.json
-│       │   ├── pokemon_extra_data.json
-│       │   ├── pokemon_moves.json
-│       │   └── type_chart.json
-│       └── scripts/
-│           └── search_pokemon.py  # CLI search utility
-└── README.md
+pokedex/
+├── SKILL.md                 # Skill instructions and reasoning examples for Claude
+├── references/              # Bundled JSON data files
+│   ├── pokemon_compact.json
+│   ├── pokemon_data.json
+│   ├── pokemon_extra_data.json
+│   ├── pokemon_moves.json
+│   └── type_chart.json
+└── scripts/
+    └── search_pokemon.py    # CLI search utility
 ```
 
 ## License
